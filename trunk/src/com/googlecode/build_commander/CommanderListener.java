@@ -5,8 +5,6 @@ import org.apache.tools.ant.*;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.logging.Logger;
-import java.util.logging.FileHandler;
-import java.util.logging.SimpleFormatter;
 import java.util.logging.Level;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -40,6 +38,8 @@ public class CommanderListener implements SubBuildListener
     {
         _config = new Config();
         _logger = _config.getLogger();
+
+        _configParser = new ConfigParser(_config);
     }
 
     public void subBuildStarted(BuildEvent event)
@@ -194,8 +194,6 @@ public class CommanderListener implements SubBuildListener
 
     private void init(Project project)
     {
-        configLogger();
-
         addHandlers(_configParser.getSystemConfig(), "system");
         addHandlers(_configParser.getUserConfig(), "user");
         addHandlers(_configParser.getProjectConfig(project.getBaseDir()), "project");
@@ -216,27 +214,5 @@ public class CommanderListener implements SubBuildListener
                 _logger.log(Level.SEVERE, "Cannot parse config file: " + cfgFile.getAbsolutePath(), e);
             }
         }
-    }
-
-    private void configLogger()
-    {
-        _logger = Logger.getLogger("build-commander");
-
-        try
-        {
-            FileHandler fileHandler = new FileHandler("build-commander.log", true);
-            fileHandler.setFormatter(new SimpleFormatter());
-            fileHandler.setLevel(Level.ALL);
-
-            _logger.addHandler(fileHandler);
-
-            _logger.setLevel(Level.ALL);
-        }
-        catch (IOException e)
-        {
-            // ignore?
-        }
-
-        _configParser = new ConfigParser(_config);
     }
 }
