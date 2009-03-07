@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<project name="Build Commander" default="dist" basedir=".">
+
+    <property file="project.properties"/>
+
+    <!-- Common build classpath -->
+    <path id="classpath">
+       <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+       </fileset>
+    </path>
+
+    <path id="classpath.test">
+        <path refid="classpath"/>
+        <pathelement location="${classes}"/>
+    </path>
+
+    <target name="clean" description="Remove all old build artifacts">
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+    </target>
+
+    <target name="prepare">
+        <mkdir dir="${build}"/>
+        <mkdir dir="${dist}"/>
+    </target>
+
+    <target name="compile" depends="prepare" description="Compiles main code.">
+        <mkdir dir="${classes}"/>
+        <javac srcdir="${src}"
+            destdir="${classes}"
+            debug="${debug}"
+            deprecation="yes"
+            source="${jvm.ver}"
+            target="${jvm.ver}"
+            includeAntRuntime="no"
+            classpathref="classpath"/>
+    </target>
+
+    <target name="compile_test_junit" depends="compile" >
+        <mkdir dir="${classes.test.junit}"/>
+        <javac srcdir="${test.src}"
+            destdir="${classes.test.junit}"
+            debug="${debug}"
+            source="${jvm.ver}"
+            target="${jvm.ver}">
+            <classpath>
+                <path refid="classpath.test"/>
+            </classpath>
+        </javac>
+        <copy todir="${classes.test.junit}">
+            <fileset dir="${test.cfg}">
+                <include name="*.properties"/>
+                <include name="*.xml"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile_all" depends="compile, compile_test_junit" description="Compile everything: main code and test code."/>
+
+    <target name="jar" depends="compile">
+        <jar jarfile="${dist}/${component.name}.jar">
+            <fileset dir="${classes}"/>
+        </jar>
+    </target>
+
+    <target name="install" depends="dist" description="Build the jar and copy to user ant lib foler: ~/.ant/lib/">
+        <copy file="${dist}/${component.name}.jar" todir="${user.home}/.ant/lib"/>
+    </target>
+
+    <target name="dist" depends="jar" description="Builds all deployable projects" />
+</project>
+
