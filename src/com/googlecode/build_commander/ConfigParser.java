@@ -110,11 +110,11 @@ public class ConfigParser
                 }
                 else if (key.startsWith(keyPrefix + ".if."))
                 {
-                    handler.addCondition(Condition.create(key.substring((keyPrefix + ".if.").length()), value, false));
+                    handler.addCondition(Condition.create(_config, key.substring((keyPrefix + ".if.").length()), value, false));
                 }
                 else if (key.startsWith(keyPrefix + ".unless."))
                 {
-                    handler.addCondition(Condition.create(key.substring((keyPrefix + ".unless.").length()), value, true));
+                    handler.addCondition(Condition.create(_config, key.substring((keyPrefix + ".unless.").length()), value, true));
                 }
                 else if (key.startsWith(keyPrefix + ".command"))
                 {

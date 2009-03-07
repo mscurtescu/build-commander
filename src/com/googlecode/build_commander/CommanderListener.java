@@ -161,8 +161,14 @@ public class CommanderListener implements SubBuildListener
         }
 
         Throwable exception = event.getException();
-        if (exception != null)
+        if (exception == null)
         {
+            addProperty(propertyHelper, "success", "true");
+        }
+        else
+        {
+            addProperty(propertyHelper, "success", "false");
+
             addProperty(propertyHelper, "exception.message", exception.getMessage());
 
             try
@@ -180,6 +186,7 @@ public class CommanderListener implements SubBuildListener
                 _logger.log(Level.SEVERE, "Cannot capture exception stack trace!", e);
             }
         }
+
 
         return propertyHelper;
     }
