@@ -16,9 +16,26 @@ import java.io.InputStream;
 public class ConfigParser
 {
     private static Pattern EVENT_PATTERN = Pattern.compile("event\\.(\\w+)\\.(\\w+)\\..+");
+    private static Set<String> EVENT_NAMES = new HashSet<String>();
+
+    private Set<String> _invalidEventNames = new HashSet<String>();
 
     private Config _config;
     private Logger _logger;
+
+    static
+    {
+        EVENT_NAMES.add("subBuildStarted");
+        EVENT_NAMES.add("subBuildFinished");
+        EVENT_NAMES.add("buildStarted");
+        EVENT_NAMES.add("buildFirst");
+        EVENT_NAMES.add("buildFinished");
+        EVENT_NAMES.add("targetStarted");
+        EVENT_NAMES.add("targetFinished");
+        EVENT_NAMES.add("taskStarted");
+        EVENT_NAMES.add("taskFinished");
+        EVENT_NAMES.add("messageLogged");
+    }
 
     public ConfigParser(Config config)
     {
@@ -50,6 +67,19 @@ public class ConfigParser
             {
                 String eventName = eventMatcher.group(1);
                 String handlerName = eventMatcher.group(2);
+
+                if (!EVENT_NAMES.contains(eventName))
+                {
+                    if (!_invalidEventNames.contains(eventName)) // log only once
+                    {
+                        _logger.severe("Invalid event name: " + eventName);
+
+                        _invalidEventNames.add(eventName);
+                    }
+
+                    continue;
+                }
+
                 String keyPrefix = "event." + eventName + "." + handlerName;
 
                 EventHandler handler;

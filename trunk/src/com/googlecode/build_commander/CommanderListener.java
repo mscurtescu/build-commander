@@ -16,8 +16,9 @@ public class CommanderListener implements SubBuildListener
     private Logger _logger;
     private Config _config = new Config();
     private ConfigParser _configParser;
+    private boolean _firstExecuted = false;
 
-    private static Map<Integer,String> _priorityNames = new HashMap<Integer, String>(5);
+    private static final Map<Integer,String> PRIORITY_NAMES = new HashMap<Integer, String>(5);
 
     public static final String SYS_PROJECT_CONFIG_FILENAME = "com.googlecode.build_commander.project.config.filename";
     public static final String SYS_USER_CONFIG_FILE = "com.googlecode.build_commander.user.config.file";
@@ -27,11 +28,11 @@ public class CommanderListener implements SubBuildListener
 
     static
     {
-        _priorityNames.put(0, "error");
-        _priorityNames.put(1, "warning");
-        _priorityNames.put(2, "information");
-        _priorityNames.put(3, "verbose");
-        _priorityNames.put(4, "debug");
+        PRIORITY_NAMES.put(0, "error");
+        PRIORITY_NAMES.put(1, "warning");
+        PRIORITY_NAMES.put(2, "information");
+        PRIORITY_NAMES.put(3, "verbose");
+        PRIORITY_NAMES.put(4, "debug");
     }
 
     public CommanderListener()
@@ -91,6 +92,12 @@ public class CommanderListener implements SubBuildListener
 
     private void executeComands(String eventType, BuildEvent event)
     {
+        executeFirst(eventType, event);
+
+        executeRegular(eventType, event);
+    }
+
+    private void executeRegular(String eventType, BuildEvent event) {
         _logger.finest("Event: " + eventType);
 
         PropertyHelper propertyHelper = createPropertyHelper(event);
@@ -112,6 +119,18 @@ public class CommanderListener implements SubBuildListener
                         _logger.log(Level.SEVERE, "Cannot execute event handler: " + eventHandler.toString(), e);
                 }
             }
+        }
+    }
+
+    private void executeFirst(String eventType, BuildEvent event)
+    {
+        if (!(_firstExecuted || event.getProject().getName() == null))
+        {
+            _logger.fine("buildFirst fired for " + eventType);
+            
+            executeRegular("buildFirst", event);
+
+            _firstExecuted = true;
         }
     }
 
@@ -157,7 +176,7 @@ public class CommanderListener implements SubBuildListener
 
             int priority = event.getPriority();
             addProperty(propertyHelper, "priority.code", Integer.toString(priority));
-            addProperty(propertyHelper, "priority.name", _priorityNames.get(priority));
+            addProperty(propertyHelper, "priority.name", PRIORITY_NAMES.get(priority));
         }
 
         Throwable exception = event.getException();
