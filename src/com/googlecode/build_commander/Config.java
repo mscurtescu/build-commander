@@ -41,7 +41,7 @@ public class Config
     {
         try
         {
-            Level logLevel = Level.parse(logLevelStr);
+            Level logLevel = Level.parse(logLevelStr.toUpperCase());
 
             _logger.setLevel(logLevel);
         }

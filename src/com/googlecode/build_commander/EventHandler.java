@@ -109,6 +109,14 @@ public class EventHandler
 
     public void execute(PropertyHelper propertyHelper) throws IOException
     {
+        if (_command.size() == 1 && _command.get(0).length() == 0)
+        {
+            // skipping empty command
+            _logger.fine("Skipping empty command.");
+            
+            return;
+        }
+
         List<String> expandedCmd = new ArrayList<String>(_command.size());
 
         for (String cmdPart : _command)
