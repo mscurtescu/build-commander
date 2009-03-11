@@ -94,6 +94,6 @@ When writing event handler the following properties are available and will be ex
   * *message*
   * *priority.code* - message priority code: *0*, *1*, *2*, *3*, *4*
   * *priority.name* - symbolic name for above priority code, same order: *error*, *warning*, *information*, *verbose*, *debug*
-  * *success*
+  * *success* - *true* or *false*, depending if current event had errors or no, the _exception.*_ properties are set only if this is *false*
   * *exception.message*
   * *exception.stackTrace*
