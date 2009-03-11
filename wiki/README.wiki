@@ -1,0 +1,20 @@
+#summary General Overview of Build Commander
+#labels Featured
+
+= Introduction =
+
+Build Commander is an Ant build listener that allows you to run arbitrary system commands triggered by build events.
+
+Based on how build listeners are implemented in Ant, these commands can be hooked-in without changing the build scripts, just by providing external configuration files and an environment variable to instruct Ant to use this build listener.
+
+These transparent hook-in mechanism allows in a heterogeneous team, for example, each developer to run their own OS specific commands to display notifications and start external applications like browser without impacting each other.
+
+
+= Typical Usages =
+
+Here are some typical usages for this build listener:
+  * display a pop-up notification when the build ends, with a different message if the build fails
+  * only when JUnit fails, automatically start a browser with the JUnit HTML report index page
+  * automatically start a browser with the generated Javadoc
+  * show a link to the generated Javadoc in a popup message window
+  * launch a local deployment script when the build successfully ends
