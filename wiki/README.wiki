@@ -1,5 +1,5 @@
 #summary General Overview of Build Commander
-#labels Featured
+#labels Featured,Phase-Design,Phase-Deploy
 
 = Introduction =
 
@@ -18,3 +18,48 @@ Here are some typical usages for this build listener:
   * automatically start a browser with the generated Javadoc
   * show a link to the generated Javadoc in a popup message window
   * launch a local deployment script when the build successfully ends
+
+
+= Installation =
+
+See [INSTALLATION].
+
+
+= Configuration Files =
+
+Build Commander configuration files are using the standard Java .properties file format.
+
+== General Configuration ==
+
+  * `log.file` - full path of file to be used for logging
+  * `log.level` - log level, one of: 
+
+The log file and log level can also be set with Java system variables, see [INSTALL]. The log file settings from a configuration file take precedence.
+
+== Event Handler Configuration ==
+
+The Ant BuildListener provides the following build events:
+  * subBuildStarted
+  * subBuildFinished
+  * buildStarted
+  * buildFinished
+  * targetStarted
+  * targetFinished
+  * taskStarted
+  * taskFinished
+  * messageLogged
+
+Build Commander also introduces a pseudo event:
+  * buildFirst - fired whit the first build event that has a complete Project definition (you can use all project properties, see below)
+
+In order to write event handler commands in the configuration file you will have to write a set of properties with a prefix specific to the event you want to handle, this prefix looks like:
+
+*event.*_<event name>_*.*_<handler name>_*.*
+
+where:
+  * _<event name>_ - is one of the event names from above
+  * _<handler name>_ - is a handler name that defines one specific handler
+
+Naming each handler allows you to do two things:
+  # Override specific handlers in configuration files. For example, if the user configuration file defines a buildFinished.popup event then you can define the same, and so override it, in a project configuration file.
+  # Create multiple handlers for the same event. For the buildFinished event for example you can create one event for successful build and another for failed build.
