@@ -37,8 +37,8 @@ Build Commander configuration files are using the standard Java .properties file
 
 == General Configuration ==
 
-  * `log.file` - full path of file to be used for logging
-  * `log.level` - log level, one of: 
+  * *log.file* - full path of file to be used for logging
+  * *log.level* - log level, one of: *FINEST*, *FINER*, *FINE*, *CONFIG*, *INFO*, *WARNING*, *SEVERE*; the default is *WARNING*
 
 The log file and log level can also be set with Java system variables, see [INSTALL]. The log file settings from a configuration file take precedence.
 
@@ -94,6 +94,6 @@ When writing event handler the following properties are available and will be ex
   * *message*
   * *priority.code* - message priority code: *0*, *1*, *2*, *3*, *4*
   * *priority.name* - symbolic name for above priority code, same order: *error*, *warning*, *information*, *verbose*, *debug*
-  * *success
+  * *success*
   * *exception.message*
   * *exception.stackTrace*
