@@ -60,12 +60,12 @@ Build Commander also introduces a pseudo event:
 
 Event handlers associate build events with one or more commands, and are defined in Build Commander's configuration file with one or more lines in having the following format:
 
-*event.*_<event name>_*.*_<handler name>_*.*_<handler attribute>_=_<value>_
+*event.*_<event name>_*.*_<handler name>_*.*_<handler attribute>_=_`<value`>_
 
 where:
   * _<event name>_ - is one of the event names from above
   * _<handler name>_ - is a handler name that defines one specific handler
-  * _<handler attribute>_ and _<value>_ describe the action configured for a handler
+  * _<handler attribute>_ and _`<value`>_ describe the action configured for a handler
 
 Example:
 {{{
