@@ -58,7 +58,7 @@ The Ant BuildListener provides the following build events:
 Build Commander also introduces a pseudo event:
   * *buildFirst* - fired with the first build event that has a complete Project definition (you can use all project properties, see below)
 
-Event handlers associate build events with one or more commands, and are defined in Build Commander's configuration file with one or more lines in having the following format:
+Event handlers associate build events with one or more commands, and are defined in Build Commander's configuration file with one or more lines having the following format:
 
 *event.*_<event name>_*.*_<handler name>_*.*_<handler attribute>_=_`<value`>_
 
