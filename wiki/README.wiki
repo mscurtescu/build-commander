@@ -28,7 +28,7 @@ Here are some typical usages for this build listener:
 
 = Installation =
 
-See [INSTALLATION].
+See [INSTALL].
 
 
 = Configuration Files =
