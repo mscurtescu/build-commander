@@ -7,6 +7,8 @@ Based on how build listeners are implemented in Ant, these commands can be hooke
 
 These transparent hook-in mechanism allows in a heterogeneous team, for example, each developer to run their own OS specific commands to display notifications and start external applications like browser without impacting each other.
 
+Home page: http://code.google.com/p/build-commander/
+
 
 Typical Usages
 ==============

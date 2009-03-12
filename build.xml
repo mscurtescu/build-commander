@@ -69,6 +69,14 @@
         <copy file="${dist}/${component.name}.jar" todir="${user.home}/.ant/lib"/>
     </target>
 
-    <target name="dist" depends="jar" description="Builds all deployable projects" />
+    <target name="dist" depends="jar" description="Builds all deployable projects">
+        <tar destfile="${dist}/${component.name}.tgz" compression="gzip">
+            <tarfileset dir=".">
+                <include name="dist/*.jar"/>
+                <include name="samples/**"/>
+            </tarfileset>
+            <tarfileset dir="doc"/>
+        </tar>
+    </target>
 </project>
 
