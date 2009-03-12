@@ -56,30 +56,36 @@ The Ant BuildListener provides the following build events:
   * *messageLogged*
 
 Build Commander also introduces a pseudo event:
-  * *buildFirst* - fired whit the first build event that has a complete Project definition (you can use all project properties, see below)
+  * *buildFirst* - fired with the first build event that has a complete Project definition (you can use all project properties, see below)
 
-In order to write event handler commands in the configuration file you will have to write a set of properties with a prefix specific to the event you want to handle, this prefix looks like:
+Event handlers associate build events with one or more commands, and are defined in Build Commander's configuration file with one or more lines in having the following format:
 
-*event.*_<event name>_*.*_<handler name>_*.*
+*event.*_<event name>_*.*_<handler name>_*.*_<handler attribute>_=_<value>_
 
 where:
   * _<event name>_ - is one of the event names from above
   * _<handler name>_ - is a handler name that defines one specific handler
+  * _<handler attribute>_ and _<value>_ describe the action configured for a handler
+
+Example:
+{{{
+event.buildFirst.popup.command=notify-send
+}}}
 
 Naming each handler allows you to do two things:
   # Override specific handlers in configuration files. For example, if the user configuration file defines a buildFinished.popup event then you can define the same, and so override it, in a project configuration file.
   # Create multiple handlers for the same event. For the buildFinished event for example you can create one event for successful build and another for failed build.
 
-With the above prefix you can use the following suffixes to create an event handler:
-  * *.command* - the actual command to run, no arguments, you can leave this empty and this defines a no-op command, can be used to silence event handlers in higher level configuration files
-  * *.command.1*, *.command.2*... - command arguments
-  * *.dir* - the folder where the command should be run, the default is the project base directory
-  * *.redirectError* - *true* or *false*, to redirect the command error output to the command standard output, default is *false*
-  * *.wait* - *true* or *false*, if Build Commander should wait for this command to finish, in which case the return code will be logged, default is *false*
-  * *.if.*_property_ - fire this handler only if the specified property has the provided value
+Handler attributes are:
+  * *command* - the actual command to run, no arguments, you can leave this empty and this defines a no-op command, can be used to silence event handlers in higher level configuration files
+  * *command.1*, *.command.2*... - command arguments
+  * *dir* - the folder where the command should be run, the default is the project base directory
+  * *redirectError* - *true* or *false*, to redirect the command error output to the command standard output, default is *false*
+  * *wait* - *true* or *false*, if Build Commander should wait for this command to finish, in which case the return code will be logged, default is *false*
+  * *if.*_property_ - fire this handler only if the specified property has the provided value
   * *.unless.*_property_ - fire this handler only if the specified property does not have the provided value
 
-When writing event handler the following properties are available and will be expanded if set:
+Build Commander makes available extra information about each build event to the event handler through the following *event properties*; they can be used inside handler attribute values as *${<event property>}.
   * *project.dir* - the project base dir
   * *project.default* - default target of the project
   * *project.description*
@@ -97,3 +103,8 @@ When writing event handler the following properties are available and will be ex
   * *success* - *true* or *false*, depending if current event had errors or no, the _exception.`*`_ properties are set only if this is *false*
   * *exception.message*
   * *exception.stackTrace*
+
+Example:
+{{{
+event.buildFirst.popup.command.5=Build Started: ${project.name}
+}}}
