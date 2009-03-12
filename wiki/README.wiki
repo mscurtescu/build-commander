@@ -108,3 +108,5 @@ Example:
 {{{
 event.buildFirst.popup.command.5=Build Started: ${project.name}
 }}}
+
+See [http://code.google.com/p/build-commander/source/browse/trunk/samples/linux/build-commander.properties samples] for more.
