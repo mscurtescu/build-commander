@@ -85,7 +85,7 @@ Handler attributes are:
   * *if.*_property_ - fire this handler only if the specified property has the provided value
   * *.unless.*_property_ - fire this handler only if the specified property does not have the provided value
 
-Build Commander makes available extra information about each build event to the event handler through the following *event properties*; they can be used inside handler attribute values as *${<event property>}.
+Build Commander makes available extra information about each build event to the event handler through the following *event properties*; they can be used inside handler attribute values as *${<event property>}*.
   * *project.dir* - the project base dir
   * *project.default* - default target of the project
   * *project.description*
