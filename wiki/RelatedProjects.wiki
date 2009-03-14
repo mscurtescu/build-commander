@@ -4,9 +4,9 @@
 
 http://code.google.com/p/growlbuildlistener/
 
- _A custom BuildListener for Ant that will display build notifications via Growl (or JGrowl on non-Mac platforms). It uses JGrowl to send notifications using Growl's network protocol._
+ _A custom !BuildListener for Ant that will display build notifications via Growl (or JGrowl on non-Mac platforms). It uses JGrowl to send notifications using Growl's network protocol._
 
-Build Commander was inspired by GrowlBuildListener.
+Build Commander was inspired by !GrowlBuildListener.
 
 = Growl Maven Integration =
 
