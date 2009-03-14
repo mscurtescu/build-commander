@@ -44,7 +44,7 @@ The log file and log level can also be set with Java system variables, see [INST
 
 == Event Handler Configuration ==
 
-The Ant BuildListener provides the following build events:
+The Ant !BuildListener provides the following build events:
   * *subBuildStarted*
   * *subBuildFinished*
   * *buildStarted*
