@@ -1,5 +1,5 @@
-# build-commander
-Automatically exported from code.google.com/p/build-commander
+# Ant build listerner that can run arbitrary commands
+> Automatically exported from code.google.com/p/build-commander
 
 An Ant build listener that can run OS commands for each build event.
 
