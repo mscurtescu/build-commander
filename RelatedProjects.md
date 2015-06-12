@@ -1,0 +1,19 @@
+# growlbuildlistener #
+
+http://code.google.com/p/growlbuildlistener/
+
+> _A custom BuildListener for Ant that will display build notifications via Growl (or JGrowl on non-Mac platforms). It uses JGrowl to send notifications using Growl's network protocol._
+
+Build Commander was inspired by GrowlBuildListener.
+
+# Growl Maven Integration #
+
+http://blank.jasonwhaley.com/2009/02/growl-maven-integration.html
+
+> _...a bash script that wraps the mvn executable, pipes its output to awk, and sends selective notices to growl. You will need to have the growlnotify exectuable installed to use this._
+
+# Ant External Tools and Tasks #
+
+http://ant.apache.org/external.html
+
+There are some build listeners mentioned on the official Ant External Tools and Tasks page.
